@@ -1,5 +1,9 @@
 package ba.unsa.etf.rs.tutorijal8;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
@@ -7,6 +11,20 @@ import java.util.List;
 public class TransportDAO {
 
     private static TransportDAO instance = null;
+    private static Connection conn;
+    private static PreparedStatement addDriver;
+    private static PreparedStatement addBus;
+    private static PreparedStatement removeDriver;
+
+    private TransportDAO(){
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:baza.db");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     private static void initialize(){
         instance = new TransportDAO();
